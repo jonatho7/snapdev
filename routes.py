@@ -1,19 +1,9 @@
-############ START CHANGE FROM LOCAL DEVELOPMENT TO HOSTED SITE ##############
-SERVER_URL_BASE = "http://snapdev.cs.vt.edu/snapdev"
-LOCAL_URL_BASE = "http://127.0.0.1:5000"
-
-
-SITE_URL_BASE = SERVER_URL_BASE
-# SITE_URL_BASE = LOCAL_URL_BASE
-
-############ END CHANGE FROM LOCAL DEVELOPMENT TO HOSTED SITE ##############
-
-
-
 from flask import Flask
 from flask import render_template
 from flask import jsonify
 from flask import request
+from config.server_configuration import SITE_URL_BASE, SERVER_URL_BASE
+
 
 
 # Uncomment these next lines for logging on the snapdev.cs.vt.edu server.
@@ -95,11 +85,15 @@ def _get(urlString):
 
 @app.route('/')
 def index():
-    return render_template('hello.html')
+    return render_template('index.html',SITE_URL_BASE=SITE_URL_BASE)
+
+@app.route('/api')
+def api():
+    return render_template('api.html',SITE_URL_BASE=SITE_URL_BASE)
 
 @app.route('/hello')
 def learn():
-    return render_template('hello2.html')
+    return render_template('hello.html',SITE_URL_BASE=SITE_URL_BASE)
 
 
 
