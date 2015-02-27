@@ -16,6 +16,16 @@ from flask import jsonify
 from flask import request
 
 
+# Uncomment these next lines for logging on the snapdev.cs.vt.edu server.
+if SITE_URL_BASE == SERVER_URL_BASE:
+    import logging
+    logging.basicConfig(
+       level=logging.WARNING,
+       format='[%(asctime)s] [%(name)s] [%(levelname)s] %(message)s',
+       datefmt='%Y%m%d-%H:%M%p',
+    )
+
+
 from datetime import datetime
 
 
@@ -85,11 +95,11 @@ def _get(urlString):
 
 @app.route('/')
 def index():
-    return render_template('hello.html', SITE_URL_BASE=SITE_URL_BASE)
+    return render_template('hello.html')
 
 @app.route('/hello')
 def learn():
-    return render_template('hello2.html', SITE_URL_BASE=SITE_URL_BASE)
+    return render_template('hello2.html')
 
 
 
