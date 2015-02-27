@@ -35,11 +35,7 @@ else:
 app = Flask(__name__)
 
 
-
-
-
-
-# For caching.
+# This method is designed to eliminate caching, so that files reload each time the page is loaded.
 @app.after_request
 def add_header(response):
     response.headers['Last-Modified'] = datetime.now()
@@ -49,12 +45,7 @@ def add_header(response):
     return response
 
 
-
-
-
-
-
-
+# A GET request to a URL.
 def _get(urlString):
     """
     Internal method to convert a URL into it's response (a *str*).
@@ -72,15 +63,6 @@ def _get(urlString):
         return response.read()
 
 
-
-
-#(End) helper methods.
-
-
-
-
-
-
 @app.route('/')
 def index():
     return render_template('index.html',SITE_URL_BASE=SITE_URL_BASE)
@@ -94,40 +76,11 @@ def learn():
     return render_template('hello.html',SITE_URL_BASE=SITE_URL_BASE)
 
 
-
-@app.route('/urlRequestForClient')
-def urlRequestForClient():
-    #Get the request parameters.
-    urlString = str(request.args.get('urlString'))
-    app.logger.debug(urlString)
-
-    #newURLString = "https://" + urlString
-    newURLString = "http://" + urlString
-
-    rawResponseValue = _get(newURLString)
-
-    responseValue = removeUnwantedCharacters(rawResponseValue)
-
-    #Form the response.
-    urlReport = {'responseValue': responseValue}
-
-    #Return the results.
-    return jsonify(urlReport=urlReport)
-
-
-# Helper Methods
-def removeUnwantedCharacters(rawResponseValue):
-    responseValue = ""
-    firstCurly = rawResponseValue.find("{")
-    firstBracket = rawResponseValue.find("[")
-
-    if (firstCurly < firstBracket):
-        responseValue = rawResponseValue[firstCurly:]
-    else:
-        responseValue = rawResponseValue[firstBracket:]
-    return responseValue
-
-
+@app.route('/api/returnTestData')
+def returnTestData():
+    data = 25
+    report = {'data': data }
+    return jsonify(report=report)
 
 
 if __name__ == '__main__':
