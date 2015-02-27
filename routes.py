@@ -3,7 +3,7 @@ from flask import render_template
 from flask import jsonify
 from flask import request
 from config.server_configuration import SITE_URL_BASE, SERVER_URL_BASE
-
+from datetime import datetime
 
 
 # Uncomment these next lines for logging on the snapdev.cs.vt.edu server.
@@ -15,8 +15,6 @@ if SITE_URL_BASE == SERVER_URL_BASE:
        datefmt='%Y%m%d-%H:%M%p',
     )
 
-
-from datetime import datetime
 
 
 import sys
