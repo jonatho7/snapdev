@@ -1,1 +1,3 @@
 .idea/
+config/server_configuration.py
+*.pyc
